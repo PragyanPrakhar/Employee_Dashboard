@@ -1,74 +1,72 @@
 import { Link } from "react-router-dom";
 
-function UserCard({ user, onDelete, onSelect, isSelected }) {
+function SingleCard({ user, onDelete, onSelect, isSelected }) {
     return (
         <div
-            className={`relative bg-gray-300 shadow-lg rounded-lg p-6 mb-4 transition-transform duration-300 hover:scale-105 ${
+            className={`relative bg-white shadow-lg rounded-lg p-6 mb-6 transition-transform duration-300 hover:scale-105 hover:shadow-xl ${
                 isSelected
-                    ? "border-2 border-blue-500"
+                    ? "border-4 border-purple-500"
                     : "border border-gray-200"
             }`}
         >
-            <Link to={`/user/${user.id}`}>
-                <div className="text-center mb-4">
+            <input
+                type="checkbox"
+                checked={isSelected}
+                onChange={() => onSelect(user.id)}
+                className="absolute top-4 right-4 form-checkbox h-5 w-5 text-purple-600"
+            />
+
+            <div className="flex flex-col items-center">
+                <Link
+                    to={`/user/${user.id}`}
+                    className="w-full flex justify-center"
+                >
                     <img
                         src={user.image}
                         alt={`${user.firstName} ${user.lastName}`}
-                        className="w-28 h-28 rounded-full mx-auto border-4 border-blue-200"
+                        className="w-24 h-24 rounded-full mb-4 border-2 border-gray-300 shadow-md object-cover"
                     />
-                    <h2 className="text-2xl font-semibold text-gray-800">
-                        {user.firstName} {user.lastName}
-                    </h2>
-                    <p className="text-gray-600">
-                        <span className="font-medium text-blue-600">ID:</span>{" "}
-                        {user.id}
+                </Link>
+
+                <h2 className="text-xl font-semibold text-gray-800 mb-2">
+                    {user.firstName} {user.lastName}
+                </h2>
+
+                <div className="text-sm text-gray-600 text-center">
+                    <p>
+                        <span className="font-medium text-purple-600">
+                            University:{" "}
+                        </span>
+                        {user.university}
                     </p>
-                    <p className="text-gray-600">
-                        <span className="font-medium text-blue-600">Age:</span>{" "}
-                        {user.age}
-                    </p>
-                    <p className="text-gray-600">
-                        <span className="font-medium text-blue-600">
-                            Email:
-                        </span>{" "}
-                        {user.email}
-                    </p>
-                    <p className="text-gray-600">
-                        <span className="font-medium text-blue-600">Role:</span>{" "}
+                    <p>
+                        <span className="font-medium text-purple-600">
+                            Role:{" "}
+                        </span>
                         {user.role}
                     </p>
+                    <p>
+                        <span className="font-medium text-purple-600">
+                            Age:{" "}
+                        </span>
+                        {user.age}
+                    </p>
                 </div>
-            </Link>
 
-            {/* Action buttons */}
-            <div className="flex justify-between mt-4">
-                <button
-                    onClick={(e) => {
-                        e.stopPropagation(); // Prevent the click from triggering card navigation
-                        onDelete(user.id);
-                    }}
-                    className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition duration-200"
-                >
-                    Delete
-                </button>
-                <button
-                    onClick={(e) => e.stopPropagation()} // Prevent triggering navigation
-                    className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition duration-200"
-                >
-                    Edit
-                </button>
-                <input
-                    type="checkbox"
-                    checked={isSelected}
-                    onChange={(e) => {
-                        e.stopPropagation(); // Prevent triggering navigation
-                        onSelect(user.id);
-                    }}
-                    className="form-checkbox h-5 w-5 text-blue-600 self-center"
-                />
+                <div className="mt-4 flex justify-center space-x-4">
+                    <button
+                        onClick={() => onDelete(user.id)}
+                        className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200 shadow-md"
+                    >
+                        Delete
+                    </button>
+                    <button className="bg-yellow-400 text-white px-4 py-2 rounded-lg hover:bg-yellow-500 transition duration-200 shadow-md">
+                        Edit
+                    </button>
+                </div>
             </div>
         </div>
     );
 }
 
-export default UserCard;
+export default SingleCard;
