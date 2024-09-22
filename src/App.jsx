@@ -18,7 +18,7 @@ function EmployeeDashboard() {
         try {
             const response = await fetch("https://dummyjson.com/users");
             const result = await response.json();
-            console.log(result);
+            /* console.log(result); */
             if (result.users) {
                 setEmployeeData(result.users);
                 setVisibleEmployees(result.users);
